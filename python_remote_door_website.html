@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบประตูไฟฟ้าควบคุมด้วยรีโมท | Python Project</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#18263d;--text:#eef4ff;--muted:#a8b6cc;--blue:#65a9ff;--green:#55d6a0;--orange:#ffc46b;--red:#ff7777}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#0b1220,#101a2b 60%,#0b1220);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.65}
+.wrap{width:min(1100px,92%);margin:auto}.hero{padding:58px 0 38px;background:radial-gradient(ellipse at top right,#1e4770 0,transparent 48%)}.tag{display:inline-block;border:1px solid #37608c;color:#b9d9ff;padding:5px 12px;border-radius:999px;font-size:.85rem}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.15;margin:18px 0}h2{font-size:1.65rem;margin:0 0 14px}h3{margin:0 0 8px}.lead{max-width:760px;color:var(--muted);font-size:1.08rem}.hero-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn,button{border:0;border-radius:10px;padding:10px 15px;font:inherit;font-weight:700;cursor:pointer}.btn.primary,button.primary{background:var(--blue);color:#061327}.btn.secondary,button.secondary{background:#243650;color:var(--text);text-decoration:none}.nav{position:sticky;top:0;z-index:5;background:#0b1220eF;border-bottom:1px solid #26354c;backdrop-filter:blur(12px)}.nav .wrap{display:flex;gap:18px;overflow:auto;padding:12px 0}.nav a{color:#c9d9ef;text-decoration:none;white-space:nowrap;font-size:.92rem}.nav a:hover{color:var(--blue)}section{padding:42px 0;border-bottom:1px solid #26354c}.section-intro{color:var(--muted);margin-top:-5px;margin-bottom:22px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:linear-gradient(145deg,var(--panel),#101a2a);border:1px solid #293951;border-radius:16px;padding:19px}.card p{color:var(--muted);margin:7px 0 0}.num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#203d60;color:#b9d9ff;font-weight:800;margin-bottom:12px}.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}.flow .step{flex:1;min-width:135px;background:var(--panel2);border:1px solid #30445f;padding:14px;border-radius:12px;text-align:center}.arrow{align-self:center;color:var(--blue);font-size:1.4rem}.note{border-left:4px solid var(--orange);background:#2b261c;padding:13px 16px;border-radius:8px;color:#ffe1ae;margin-top:18px}.good{border-left-color:var(--green);background:#132b29;color:#c7f7e4}.sim-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.door-scene{background:linear-gradient(#172b45,#0e1929);border:1px solid #2b405b;border-radius:16px;padding:18px;min-height:300px;position:relative;overflow:hidden}.scene-label{color:var(--muted);font-size:.9rem}.garage{height:150px;margin-top:25px;border:5px solid #536780;border-bottom:8px solid #536780;position:relative;background:repeating-linear-gradient(0deg,#1b2b41 0 24px,#243850 24px 27px);overflow:hidden}.door-panel{position:absolute;left:0;right:0;bottom:0;height:100%;background:repeating-linear-gradient(0deg,#8ba0b8 0 27px,#667f9a 27px 31px);transition:height .25s linear;border-top:3px solid #b7c9dc}.door-panel:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 68px,#526b85 68px 72px)}.floor{height:12px;background:#718096;margin-top:0}.status-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}.pill{padding:5px 10px;border-radius:999px;background:#25364d;color:#d9e8fb;font-size:.88rem}.pill.open{background:#153b30;color:#9cf0c9}.pill.close{background:#3b2d17;color:#ffdc9c}.pill.stop{background:#283348}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}.controls button{min-height:54px}.controls .a{background:var(--green);color:#052319}.controls .b{background:var(--orange);color:#302008}.controls .c{background:var(--red);color:#330b0b}.controls button:disabled{opacity:.45;cursor:not-allowed}.meter{height:12px;border-radius:99px;background:#26364b;overflow:hidden;margin-top:12px}.meter-fill{height:100%;width:0;background:linear-gradient(90deg,#55d6a0,#65a9ff);transition:width .25s}.log{margin-top:14px;background:#08101c;border:1px solid #25354c;border-radius:10px;padding:12px;min-height:76px;color:#b7c9e1;font-size:.92rem}.equipment{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.equipment .card{padding:15px}.badge{font-size:.75rem;border:1px solid #435775;color:#c3d8f3;border-radius:999px;padding:2px 8px;margin-left:5px}.code-wrap{background:#070d16;border:1px solid #2b3b52;border-radius:14px;overflow:hidden}.code-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 15px;background:#172438;color:#c8d9ef}.code-head button{padding:7px 11px;background:#2d4666;color:#fff;font-size:.85rem}pre{margin:0;padding:18px;overflow:auto;max-height:580px;color:#d4e4f8;font-size:.86rem;line-height:1.55;tab-size:4}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.small{font-size:.9rem;color:var(--muted)}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:520px}th,td{text-align:left;padding:12px;border-bottom:1px solid #304057}th{color:#b9d9ff}td{color:#d7e2f1}footer{padding:30px 0;color:var(--muted);font-size:.9rem}.checklist{padding-left:22px;color:var(--muted)}.checklist li{margin:7px 0}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.sim-layout{grid-template-columns:1fr}.equipment{grid-template-columns:1fr}.hero{padding-top:40px}.arrow{transform:rotate(90deg);width:100%;text-align:center}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <span class="tag">PYTHON • PROJECT DEMO</span>
+  <h1>ระบบประตูไฟฟ้า<br>ควบคุมด้วยรีโมท</h1>
+  <p class="lead">เว็บไซต์นำเสนอโปรเจกต์จำลองการเปิด–ปิดประตูด้วย Python โดยกำหนดปุ่ม A = เปิด, B = ปิด และ C = หยุด พร้อมแสดงขั้นตอน อุปกรณ์ที่เกี่ยวข้อง แบบจำลองที่ทดลองกดได้ และโค้ดตัวอย่าง</p>
+  <div class="hero-buttons"><a class="btn primary" href="#simulation">ทดลองจำลอง</a><a class="btn secondary" href="#code">ดูโค้ด Python</a></div>
+ </div>
+</header>
+<nav class="nav"><div class="wrap">
+ <a href="#steps">1. ขั้นตอนการทำงาน</a><a href="#equipment">2. อุปกรณ์</a><a href="#simulation">3. จำลองระบบ</a><a href="#code">4. โค้ด Python</a><a href="#safety">ข้อควรระวัง</a>
+</div></nav>
+<main class="wrap">
+<section id="steps">
+ <h2>1. ขั้นตอนการทำงานของระบบ</h2>
+ <p class="section-intro">ลำดับการทำงานตั้งแต่ผู้ใช้กดปุ่ม จนระบบจำลองเปลี่ยนตำแหน่งประตู</p>
+ <div class="flow">
+  <div class="step"><strong>① ผู้ใช้กดปุ่ม</strong><br><span class="small">A / B / C</span></div><div class="arrow">→</div>
+  <div class="step"><strong>② รับคำสั่ง</strong><br><span class="small">ในตัวอย่างใช้ input()</span></div><div class="arrow">→</div>
+  <div class="step"><strong>③ Python ตรวจสอบ</strong><br><span class="small">if / elif</span></div><div class="arrow">→</div>
+  <div class="step"><strong>④ เปลี่ยนสถานะ</strong><br><span class="small">OPEN / CLOSE / STOP</span></div><div class="arrow">→</div>
+  <div class="step"><strong>⑤ อัปเดตตำแหน่ง</strong><br><span class="small">0–100%</span></div>
+ </div>
+ <div class="grid" style="margin-top:16px">
+  <article class="card"><div class="num">A</div><h3>เปิดประตู</h3><p>ตั้งสถานะเป็น OPEN แล้วเพิ่มตำแหน่งประตูจนถึง 100% หรือจนกว่าจะกดหยุด</p></article>
+  <article class="card"><div class="num">B</div><h3>ปิดประตู</h3><p>ตั้งสถานะเป็น CLOSE แล้วลดตำแหน่งประตูจนถึง 0% หรือจนกว่าจะกดหยุด</p></article>
+  <article class="card"><div class="num">C</div><h3>หยุดประตู</h3><p>เปลี่ยนสถานะเป็น STOP ทำให้แบบจำลองหยุดขยับตำแหน่ง</p></article>
+ </div>
+ <div class="note good"><strong>ขอบเขตของงาน:</strong> เว็บไซต์นี้เป็นแบบจำลองเพื่อการเรียนรู้ ปุ่มบนหน้าเว็บเป็นปุ่มจำลอง ไม่ได้เชื่อมต่อกับรีโมท RF หรือมอเตอร์จริง</div>
+</section>
+<section id="equipment">
+ <h2>2. ของและอุปกรณ์ที่ใช้ทั้งหมด</h2>
+ <p class="section-intro">สำหรับงานส่งที่ยังไม่มีฮาร์ดแวร์ สามารถนำเสนอเป็น 2 กลุ่ม: อุปกรณ์ที่ใช้ในแบบจำลอง และอุปกรณ์ที่จำเป็นหากพัฒนาสู่ระบบจริง</p>
+ <h3 style="margin-bottom:12px">อุปกรณ์สำหรับทำโปรแกรมจำลอง</h3>
+ <div class="equipment">
+  <article class="card"><h3>คอมพิวเตอร์หรือโน้ตบุ๊ก <span class="badge">จำเป็น</span></h3><p>ใช้เขียนและรันโปรแกรม Python หรือเปิดเว็บไซต์จำลองนี้</p></article>
+  <article class="card"><h3>Python 3 <span class="badge">จำเป็น</span></h3><p>ภาษาที่ใช้เขียนตรรกะรับคำสั่ง ควบคุมสถานะ และจำลองตำแหน่งประตู</p></article>
+  <article class="card"><h3>โปรแกรมเขียนโค้ด <span class="badge">แนะนำ</span></h3><p>เช่น IDLE หรือ Visual Studio Code สำหรับเขียนและทดสอบไฟล์ .py</p></article>
+  <article class="card"><h3>เว็บเบราว์เซอร์ <span class="badge">สำหรับเว็บนี้</span></h3><p>ใช้เปิดหน้าเว็บไซต์และทดลองกดปุ่ม A, B, C บนหน้าจอ</p></article>
+ </div>
+ <h3 style="margin:24px 0 12px">อุปกรณ์ที่ต้องเพิ่มหากทำเป็นประตูจริง</h3>
+ <div class="equipment">
+  <article class="card"><h3>บอร์ดควบคุม</h3><p>เช่น Raspberry Pi สำหรับรัน Python หรือบอร์ดควบคุมที่เหมาะกับระบบที่เลือก</p></article>
+  <article class="card"><h3>รีโมทและตัวรับสัญญาณ</h3><p>ต้องเลือกให้เข้ากัน เช่น ชุดรีโมท RF และ Receiver ที่รองรับกัน</p></article>
+  <article class="card"><h3>ชุดมอเตอร์ประตูและไดรเวอร์</h3><p>มอเตอร์พร้อมบอร์ดควบคุม/คอนแทคเตอร์ที่เหมาะกับชนิดและกำลังของมอเตอร์</p></article>
+  <article class="card"><h3>Limit Switch หรือเซ็นเซอร์ตำแหน่ง</h3><p>ตรวจจับตำแหน่งเปิดสุดและปิดสุด เพื่อสั่งหยุดตามตำแหน่ง</p></article>
+  <article class="card"><h3>เซ็นเซอร์กันหนีบและปุ่มหยุดฉุกเฉิน</h3><p>ช่วยลดความเสี่ยงเมื่อมีคนหรือสิ่งของขวางทางประตู</p></article>
+  <article class="card"><h3>แหล่งจ่ายไฟและกล่องป้องกัน</h3><p>ต้องเลือกตามสเปกอุปกรณ์ พร้อมการป้องกันไฟฟ้าและติดตั้งอย่างเหมาะสม</p></article>
+ </div>
+ <div class="note">รายการฮาร์ดแวร์ส่วนที่สองเป็นรายการวางแผนสำหรับการพัฒนาต่อ ไม่ได้หมายความว่าเว็บไซต์จำลองนี้ได้เชื่อมต่อกับอุปกรณ์เหล่านั้นแล้ว</div>
+</section>
+<section id="simulation">
+ <h2>3. จำลองการทำงานของประตูไฟฟ้า</h2>
+ <p class="section-intro">ทดลองกดปุ่มได้จริงในหน้าเว็บ: A เปิด, B ปิด, C หยุด ประตูจะเคลื่อนที่ทีละน้อยจนถึงปลายทาง</p>
+ <div class="sim-layout">
+  <div class="door-scene">
+   <div class="scene-label">มุมมองประตูโรงรถ (ภาพจำลอง)</div>
+   <div class="garage"><div class="door-panel" id="doorPanel"></div></div><div class="floor"></div>
+   <div class="status-row"><span class="pill stop" id="statePill">สถานะ: STOP</span><span class="pill" id="posPill">ตำแหน่ง: 0%</span></div>
+   <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+   <p class="small" id="message" aria-live="polite">ประตูปิดสนิท พร้อมรับคำสั่ง</p>
+  </div>
+  <div class="card">
+   <h3>แผงควบคุมรีโมทจำลอง</h3><p class="small">กดปุ่มเพื่อเปลี่ยนสถานะประตู</p>
+   <div class="controls"><button class="a" id="openBtn">A · เปิด</button><button class="b" id="closeBtn">B · ปิด</button><button class="c" id="stopBtn">C · หยุด</button></div>
+   <div class="log" id="eventLog" aria-live="polite">ระบบเริ่มต้น: ประตูอยู่ที่ 0% และหยุดนิ่ง</div>
+   <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="secondary" id="resetBtn">รีเซ็ตตำแหน่ง</button><button class="secondary" id="stepBtn">ขยับ 10% (ทดสอบ)</button></div>
+   <p class="small">หมายเหตุ: ปุ่ม “ขยับ 10%” ใช้ทดสอบการแสดงผลทีละขั้นเท่านั้น</p>
+  </div>
+ </div>
+</section>
+<section id="code">
+ <h2>4. โค้ด Python ที่ใช้จำลองประตู</h2>
+ <p class="section-intro">ตัวอย่างนี้รันใน Terminal/Command Prompt ได้ ใช้ปุ่ม A, B, C เพื่อสั่งงาน และ Q เพื่อออกจากโปรแกรม การเคลื่อนที่จะจำลองเป็นช่วงเวลา</p>
+ <div class="code-wrap">
+  <div class="code-head"><span>door_simulation.py</span><button id="copyCode">คัดลอกโค้ด</button></div>
+  <pre><code id="pythonCode">import time
+import threading
+
+# ตำแหน่งประตู: 0 = ปิดสนิท, 100 = เปิดสุด
+door_position = 0
+motor_direction = "STOP"
+lock = threading.Lock()
+running = True
+
+
+def open_door():
+    global motor_direction
+    with lock:
+        if door_position >= 100:
+            motor_direction = "STOP"
+            print("ประตูเปิดสุดแล้ว")
+        else:
+            motor_direction = "OPEN"
+            print("กำลังเปิดประตู")
+
+
+def close_door():
+    global motor_direction
+    with lock:
+        if door_position <= 0:
+            motor_direction = "STOP"
+            print("ประตูปิดสนิทแล้ว")
+        else:
+            motor_direction = "CLOSE"
+            print("กำลังปิดประตู")
+
+
+def stop_door():
+    global motor_direction
+    with lock:
+        motor_direction = "STOP"
+    print("หยุดประตู")
+
+
+def movement_loop():
+    """จำลองการเคลื่อนที่ต่อเนื่องจนสุดทางหรือได้รับคำสั่งหยุด"""
+    global door_position, motor_direction, running
+
+    while running:
+        with lock:
+            if motor_direction == "OPEN":
+                door_position = min(100, door_position + 5)
+                print(f"ตำแหน่งประตู: {door_position}%")
+                if door_position >= 100:
+                    motor_direction = "STOP"
+                    print("เปิดสุดแล้ว — หยุดอัตโนมัติ")
+
+            elif motor_direction == "CLOSE":
+                door_position = max(0, door_position - 5)
+                print(f"ตำแหน่งประตู: {door_position}%")
+                if door_position <= 0:
+                    motor_direction = "STOP"
+                    print("ปิดสนิทแล้ว — หยุดอัตโนมัติ")
+
+        time.sleep(0.25)
+
+
+# แยกการจำลองการเคลื่อนที่ไว้ในเธรดอีกตัว
+worker = threading.Thread(target=movement_loop, daemon=True)
+worker.start()
+
+try:
+    while True:
+        print("\\nA = เปิด | B = ปิด | C = หยุด | Q = ออก")
+        button = input("กดปุ่มจำลอง: ").strip().upper()
+
+        if button == "A":
+            open_door()
+        elif button == "B":
+            close_door()
+        elif button == "C":
+            stop_door()
+        elif button == "Q":
+            stop_door()
+            break
+        else:
+            print("ไม่พบคำสั่ง กรุณากด A, B, C หรือ Q")
+
+finally:
+    running = False
+    stop_door()
+    print("ปิดโปรแกรมจำลอง")</code></pre>
+ </div>
+ <div class="note good"><strong>หลักการของโค้ด:</strong> <code>if/elif</code> ตรวจสอบปุ่ม, ฟังก์ชัน <code>open_door()</code>, <code>close_door()</code> และ <code>stop_door()</code> จัดการคำสั่ง, ส่วน <code>movement_loop()</code> จำลองการเคลื่อนที่ทีละ 5% จนถึง 0% หรือ 100%</div>
+ <h3 style="margin-top:24px">คำสั่งสำคัญในโค้ด</h3>
+ <div class="table-wrap"><table><thead><tr><th>คำสั่ง</th><th>หน้าที่</th></tr></thead><tbody>
+ <tr><td><code>def</code></td><td>สร้างฟังก์ชันเพื่อแบ่งหน้าที่ของโปรแกรม</td></tr>
+ <tr><td><code>if / elif</code></td><td>ตรวจสอบว่าผู้ใช้กดปุ่มใด</td></tr>
+ <tr><td><code>while</code></td><td>ทำให้ระบบจำลองทำงานต่อเนื่อง</td></tr>
+ <tr><td><code>min() / max()</code></td><td>จำกัดตำแหน่งไม่ให้เกินช่วง 0–100%</td></tr>
+ <tr><td><code>threading</code></td><td>แยกการเคลื่อนที่จำลองออกจากการรอรับคำสั่ง</td></tr>
+ <tr><td><code>time.sleep()</code></td><td>กำหนดช่วงเวลาระหว่างการอัปเดตตำแหน่ง</td></tr>
+ </tbody></table></div>
+</section>
+<section id="safety">
+ <h2>ข้อควรระวังก่อนพัฒนาเป็นของจริง</h2>
+ <ul class="checklist">
+  <li>โค้ดนี้เป็นเพียงแบบจำลองบนคอมพิวเตอร์ ไม่ได้อ่านสัญญาณรีโมทจริงหรือสั่งมอเตอร์จริง</li>
+  <li>ก่อนใช้กับประตูจริง ต้องออกแบบวงจรควบคุมและระบบหยุดที่เหมาะสมกับมอเตอร์</li>
+  <li>ควรมี Limit Switch, เซ็นเซอร์ตรวจสิ่งกีดขวาง และปุ่มหยุดฉุกเฉินที่เชื่อถือได้</li>
+  <li>ห้ามต่อขา GPIO เข้ากับมอเตอร์หรือไฟบ้านโดยตรง การติดตั้งไฟฟ้าและชุดมอเตอร์ควรให้ช่างผู้ชำนาญตรวจสอบ</li>
+  <li>ระบบจริงต้องทดสอบกรณีไฟดับ สัญญาณขาด เซ็นเซอร์ขัดข้อง และคำสั่งเปิด/ปิดสวนทางกัน</li>
+ </ul>
+ <div class="note">สำหรับการส่งงาน สามารถนำเสนอเว็บไซต์นี้ในฐานะ “ต้นแบบจำลองระบบควบคุมประตูด้วย Python” และอธิบายว่าอุปกรณ์ฮาร์ดแวร์เป็นแนวทางสำหรับพัฒนาต่อในอนาคต</div>
+</section>
+</main>
+<footer><div class="wrap">โปรเจกต์เพื่อการศึกษา • ระบบจำลองประตูไฟฟ้าควบคุมด้วยรีโมท • A = เปิด | B = ปิด | C = หยุด</div></footer>
+<script>
+const panel=document.getElementById('doorPanel'), statePill=document.getElementById('statePill'),posPill=document.getElementById('posPill'),meter=document.getElementById('meterFill'),message=document.getElementById('message'),log=document.getElementById('eventLog');
+let position=0,direction='STOP',timer=null;
+function render(){
+ panel.style.height=(100-position)+'%'; // 0% position means door covers the opening; 100% means raised
+ posPill.textContent='ตำแหน่ง: '+position+'%';meter.style.width=position+'%';
+ statePill.textContent='สถานะ: '+direction;statePill.className='pill '+(direction==='OPEN'?'open':direction==='CLOSE'?'close':'stop');
+ if(position===0 && direction==='STOP') message.textContent='ประตูปิดสนิท พร้อมรับคำสั่ง';
+ else if(position===100 && direction==='STOP') message.textContent='ประตูเปิดสุดแล้ว';
+ else if(direction==='OPEN') message.textContent='กำลังเปิดประตู…';
+ else if(direction==='CLOSE') message.textContent='กำลังปิดประตู…';
+ else message.textContent='ประตูหยุดอยู่ที่ '+position+'%';
+}
+function say(t){log.textContent=t;render()}
+function tick(){
+ if(direction==='OPEN'){position=Math.min(100,position+2);if(position>=100){direction='STOP';say('เปิดสุดแล้ว — หยุดอัตโนมัติ');return}}
+ else if(direction==='CLOSE'){position=Math.max(0,position-2);if(position<=0){direction='STOP';say('ปิดสนิทแล้ว — หยุดอัตโนมัติ');return}}
+ render();
+}
+function start(dir){
+ if((dir==='OPEN'&&position>=100)||(dir==='CLOSE'&&position<=0)){direction='STOP';say(dir==='OPEN'?'ประตูเปิดสุดอยู่แล้ว':'ประตูปิดสนิทอยู่แล้ว');return}
+ direction=dir;if(timer)clearInterval(timer);timer=setInterval(tick,180);say(dir==='OPEN'?'รับคำสั่ง A: เริ่มเปิดประตู':'รับคำสั่ง B: เริ่มปิดประตู');
+}
+function stop(){direction='STOP';if(timer){clearInterval(timer);timer=null}say('รับคำสั่ง C: หยุดประตูที่ '+position+'%')}
+document.getElementById('openBtn').addEventListener('click',()=>start('OPEN'));
+document.getElementById('closeBtn').addEventListener('click',()=>start('CLOSE'));
+document.getElementById('stopBtn').addEventListener('click',stop);
+document.getElementById('resetBtn').addEventListener('click',()=>{stop();position=0;say('รีเซ็ตแล้ว: ประตูปิดสนิทที่ 0%')});
+document.getElementById('stepBtn').addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null}direction='STOP';position=Math.min(100,position+10);say('โหมดทดสอบ: ขยับตำแหน่งเพิ่ม 10%')});
+document.getElementById('copyCode').addEventListener('click',async()=>{const code=document.getElementById('pythonCode').innerText;try{await navigator.clipboard.writeText(code);document.getElementById('copyCode').textContent='คัดลอกแล้ว ✓';setTimeout(()=>document.getElementById('copyCode').textContent='คัดลอกโค้ด',1500)}catch(e){document.getElementById('copyCode').textContent='เลือกโค้ดแล้วคัดลอก'}})
+render();
+</script>
+</body>
+</html>
